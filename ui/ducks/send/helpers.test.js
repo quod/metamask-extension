@@ -53,6 +53,7 @@ describe('Send Slice Helpers', () => {
         gasPrice: '0x0',
       });
     });
+
     it('should generate a txParams for a collectible transfer', () => {
       const txParams = generateTransactionParams(
         getInitialSendStateWithExistingTxState({
@@ -90,6 +91,7 @@ describe('Send Slice Helpers', () => {
         gasPrice: '0x0',
       });
     });
+
     it('should generate a txParams for a native legacy transaction', () => {
       const txParams = generateTransactionParams(
         getInitialSendStateWithExistingTxState({
@@ -119,6 +121,7 @@ describe('Send Slice Helpers', () => {
         gasPrice: '0x0',
       });
     });
+
     it('should generate a txParams for a native fee market transaction', () => {
       const txParams = generateTransactionParams({
         ...getInitialSendStateWithExistingTxState({

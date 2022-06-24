@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { fireEvent } from '@testing-library/react';
-import { SEND_STATUSES } from '../../../../../ducks/send';
+import { AMOUNT_MODES, SEND_STATUSES } from '../../../../../ducks/send';
 import { renderWithProvider } from '../../../../../../test/jest';
 import { GAS_ESTIMATE_TYPES } from '../../../../../../shared/constants/gas';
 import {
@@ -47,7 +47,7 @@ describe('AmountMaxButton Component', () => {
       const { getByText } = renderWithProvider(<AmountMaxButton />, store);
 
       const expectedActions = [
-        { type: 'send/updateAmountMode', payload: 'MAX' },
+        { type: 'send/updateAmountMode', payload: AMOUNT_MODES.MAX },
       ];
 
       fireEvent.click(getByText('Max'), { bubbles: true });
@@ -67,7 +67,7 @@ describe('AmountMaxButton Component', () => {
           ...getInitialSendStateWithExistingTxState({
             status: SEND_STATUSES.VALID,
           }),
-          amountMode: 'MAX',
+          amountMode: AMOUNT_MODES.MAX,
         },
       });
       const { getByText } = renderWithProvider(<AmountMaxButton />, store);
