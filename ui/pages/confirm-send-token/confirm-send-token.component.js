@@ -6,13 +6,13 @@ import { SEND_ROUTE } from '../../helpers/constants/routes';
 export default class ConfirmSendToken extends Component {
   static propTypes = {
     history: PropTypes.object,
-    editTransaction: PropTypes.func,
+    editExistingTransaction: PropTypes.func,
     tokenAmount: PropTypes.string,
   };
 
   handleEdit(confirmTransactionData) {
-    const { editTransaction, history } = this.props;
-    editTransaction(confirmTransactionData).then(() => {
+    const { editExistingTransaction, history } = this.props;
+    editExistingTransaction(confirmTransactionData).then(() => {
       history.push(SEND_ROUTE);
     });
   }

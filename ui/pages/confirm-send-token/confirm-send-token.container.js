@@ -18,7 +18,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    editTransaction: async ({ txData }) => {
+    editExistingTransaction: async ({ txData }) => {
       const { id } = txData;
       await dispatch(editExistingTransaction(ASSET_TYPES.TOKEN, id.toString()));
       await dispatch(clearConfirmTransaction());

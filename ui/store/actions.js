@@ -1450,7 +1450,7 @@ export function updateMetamaskState(newState) {
       // after the chain changes. This async thunk will fail gracefully in the
       // event that we are not yet on the send flow with a draftTransaction in
       // progress.
-      dispatch(initializeSendState());
+      dispatch(initializeSendState({ chainHasChanged: true }));
     }
     dispatch({
       type: actionConstants.UPDATE_METAMASK_STATE,

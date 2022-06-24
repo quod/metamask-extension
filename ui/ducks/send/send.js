@@ -571,7 +571,7 @@ export const computeEstimatedGasLimit = createAsyncThunk(
  */
 export const initializeSendState = createAsyncThunk(
   'send/initializeSendState',
-  async (_, thunkApi) => {
+  async ({ chainHasChanged = false } = {}, thunkApi) => {
     /**
      * @typedef {Object} ReduxState
      * @property {Object} metamask - Half baked type for the MetaMask object
@@ -674,6 +674,7 @@ export const initializeSendState = createAsyncThunk(
       account,
       chainId: getCurrentChainId(state),
       tokens: getTokens(state),
+      chainHasChanged,
       gasFeeEstimates,
       gasEstimateType,
       gasLimit,
@@ -1495,6 +1496,17 @@ const slice = createSlice({
         });
         draftTransaction.gas.gasTotal = action.payload.gasTotal;
         state.gasEstimatePollToken = action.payload.gasEstimatePollToken;
+        if (action.payload.chainHasChanged) {
+          // If the state was reinitialized as a result of the user changing
+          // the network from the network dropdown, then the selected asset is
+          // no longer valid and should be set to the native asset for the
+          // network.
+          draftTransaction.asset.type = ASSET_TYPES.NATIVE;
+          draftTransaction.asset.balance =
+            draftTransaction.fromAccount?.balance ??
+            state.selectedAccount.balance;
+          draftTransaction.asset.details = null;
+        }
         if (action.payload.gasEstimatePollToken) {
           state.gasEstimateIsLoading = false;
         }
