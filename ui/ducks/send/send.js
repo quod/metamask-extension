@@ -66,6 +66,7 @@ import {
   GAS_FEE_ESTIMATES_UPDATED,
 } from '../../store/actionConstants';
 import {
+  calcTokenAmount,
   getTokenAddressParam,
   getTokenValueParam,
 } from '../../helpers/utils/token-util';
@@ -1915,10 +1916,13 @@ export function updateSendAsset(
         )),
       };
       await dispatch(hideLoadingIndication());
+      const balance = addHexPrefix(
+        calcTokenAmount(details.balance, details.decimals).toString(16),
+      );
       const asset = {
         type,
         details,
-        balance: details.balance,
+        balance,
         error: null,
       };
       if (
